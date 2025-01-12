@@ -14,7 +14,7 @@ export async function GET (){
             {status:404}
         )
       }
-      return NextResponse.json({products},{status:200})
+      return NextResponse.json(products,{status:200})
 
     } catch (error) {
         console.log(error)
@@ -41,8 +41,9 @@ export async function POST(request:Request){
         ){
             return NextResponse.json({error:"Please fill all fields"},{status:400})
         }
-
+        console.log("body: ",body)
         const newProduct = await Product.create(body);
+        console.log("newProduct: ",newProduct)
         return NextResponse.json({newProduct},{status:201})
     } catch (error) {
         console.error(error);

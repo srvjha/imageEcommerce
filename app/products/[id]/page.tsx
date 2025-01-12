@@ -2,11 +2,11 @@
 
 import { IKImage } from "imagekitio-next";
 import {
-  IProduct,
+  ProductInterface,
   ImageVariant,
   IMAGE_VARIANTS,
   ImageVariantType,
-} from "@/models/Product";
+} from "@/models/Product.model";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Loader2, AlertCircle, Check, Image as ImageIcon } from "lucide-react";
@@ -16,7 +16,7 @@ import { apiClient } from "@/lib/api-client";
 
 export default function ProductPage() {
   const params = useParams();
-  const [product, setProduct] = useState<IProduct | null>(null);
+  const [product, setProduct] = useState<ProductInterface | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<ImageVariant | null>(
@@ -38,6 +38,7 @@ export default function ProductPage() {
 
       try {
         const data = await apiClient.getProduct(id.toString());
+        console.log(data)
         setProduct(data);
       } catch (err) {
         console.error("Error fetching product:", err);
@@ -91,8 +92,8 @@ export default function ProductPage() {
 
       const rzp = new (window as any).Razorpay(options);
       rzp.open();
-    } catch (error) {
-      console.error(error);
+    } catch (error:any) {
+      console.log(error.message);
       showNotification(
         error instanceof Error ? error.message : "Payment failed",
         "error"

@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request:NextRequest){
     try {
-      const{email,password}  = await request.json();
+      const{email,password,role}  = await request.json();
       if(!email || !password){
         return NextResponse.json(
         {error:"Email and password fields are required"},
@@ -22,7 +22,7 @@ export async function POST(request:NextRequest){
       await User.create({
         email,
         password,
-        role:"user"
+        role,
       })
       return NextResponse.json(
         {message:"User registered successfully"},

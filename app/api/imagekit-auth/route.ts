@@ -3,13 +3,14 @@ import { NextResponse } from "next/server";
 
 const imagekit = new ImageKit({
   publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY!,
-  privateKey: process.env.PRIVATE_KEY!,
+  privateKey: process.env.NEXT_PRIVATE_PRIVATE_KEY!,
   urlEndpoint: process.env.NEXT_PUBLIC_URL_ENDPOINT!,
 });
 
 export async function GET() {
     try {
        const authenticationParameters =  imagekit.getAuthenticationParameters();
+       console.log("imagekit auth: ",authenticationParameters)
        return NextResponse.json(authenticationParameters)
     } catch (error) {
         return NextResponse.json(

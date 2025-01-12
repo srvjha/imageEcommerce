@@ -3,7 +3,9 @@ import Link from "next/link";
 import { IMAGE_VARIANTS, ProductInterface } from "@/models/Product.model";
 import { Eye } from "lucide-react";
 
+
 export default function ProductCard({ product }: { product: ProductInterface }) {
+  console.log("product: ",product)
   const lowestPrice = product.variants.reduce(
     (min, variant) => (variant.price < min ? variant.price : min),
     product.variants[0]?.price || 0

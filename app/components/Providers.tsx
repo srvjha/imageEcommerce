@@ -11,11 +11,15 @@ export default function Providers({children}:{children:React.ReactNode}){
     const authenticator = async () =>{
         try {
             const res = await fetch("/api/imagekit-auth");
+           
             if (!res.ok) {
                
                 throw new Error(`Failed to authenticate`);
               }
-              return res.json();
+
+              const data  = await res.json();
+              console.log("data: ",data)
+              return data;
         } catch (error) {
             throw error
         }

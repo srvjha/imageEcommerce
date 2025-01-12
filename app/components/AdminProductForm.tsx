@@ -40,6 +40,7 @@ export default function AdminProductForm() {
   });
 
   const handleUploadSuccess = (response: IKUploadResponse) => {
+    console.log("uyguyguy")
     setValue("imageUrl", response.filePath);
     showNotification("Image uploaded successfully!", "success");
   };

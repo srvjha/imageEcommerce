@@ -8,10 +8,21 @@ import Link from "next/link";
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role,setRole] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const router = useRouter();
   const { showNotification } = useNotification();
-
+  
+  
+  const handleRole = (e: React.MouseEvent<HTMLUListElement>)=>{
+    try {
+      const target = e.target as HTMLAnchorElement;
+      const role = target.textContent as string
+      setRole(role);
+    } catch (error) {
+      console.error(error)
+    }
+  }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -24,7 +35,7 @@ export default function Register() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password,role:role.toLowerCase()}),
       });
 
       const data = await res.json();
@@ -43,8 +54,9 @@ export default function Register() {
     }
   };
 
+
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto mt-2">
       <h1 className="text-2xl font-bold mb-4">Register</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -85,6 +97,19 @@ export default function Register() {
             required
             className="w-full px-3 py-2 border rounded"
           />
+        </div>
+        <div>
+        <div className="dropdown" >
+          <div tabIndex={0} role="button" className="btn w-full">Select Role</div>
+          <ul 
+          tabIndex={0} 
+          className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+          onClick={(e)=>handleRole(e)}
+          >
+            <li><a>User</a></li>
+            <li><a>Admin</a></li>
+          </ul>
+        </div>
         </div>
         <button
           type="submit"

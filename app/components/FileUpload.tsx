@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function FileUpload ({onSuccess}:{onSuccess: (response:IKUploadResponse) => void})  {
     const [uploading,setUploading] = useState(false);
     const [error,setError] = useState<string | null>(null);
-
+    const publicKey = process.env.NEXT_PUBLIC_PUBLIC_KEY 
     const onError = (err:{message:string})=>{
         setError(err.message);
         setUploading(false)
@@ -24,7 +24,8 @@ export default function FileUpload ({onSuccess}:{onSuccess: (response:IKUploadRe
     }
   return (
     <div className=" space-y-2">
-        FileUpload
+        Upload File 
+        <br />
         <IKUpload
         fileName="product-image.png"
         onError={onError}

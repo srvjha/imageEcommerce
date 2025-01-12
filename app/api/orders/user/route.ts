@@ -31,7 +31,7 @@ export async function GET(){
                 {status:404}
                 )
         }
-        return NextResponse.json({orders},{status:200})
+        return NextResponse.json(orders,{status:200})
     } catch (error) {
         console.error(error);
         return NextResponse.json(
