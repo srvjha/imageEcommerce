@@ -1,4 +1,13 @@
+import { OrderInterface } from "@/models/Order.model";
 import { ProductInterface } from "@/models/Product.model";
+import { Types } from "mongoose";
+import { ImageVariant } from "@/models/Product.model";
+export type ProductFormData = Omit<ProductInterface, "_id">;
+
+export interface CreateOrderData {
+  productId: Types.ObjectId | string;
+  variant: ImageVariant;
+}
 
 type FetchOptions = {
     method? : "GET" | "POST" | "PUT" | "DELETE";
@@ -37,6 +46,29 @@ class ApiClient {
     async getProduct(id:string){
         return this.fetch<ProductInterface>(`/api/products/${id}`)
     }
+
+    async createProduct(productData: ProductFormData) {
+        return this.fetch<ProductInterface>("/products", {
+          method: "POST",
+          body: productData,
+        });
+      }
+    
+      async getUserOrders() {
+        return this.fetch<OrderInterface[]>("/orders/user");
+      }
+    
+      async createOrder(orderData: CreateOrderData) {
+        const sanitizedOrderData = {
+          ...orderData,
+          productId: orderData.productId.toString(),
+        };
+    
+        return this.fetch<{ orderId: string; amount: number }>("/orders", {
+          method: "POST",
+          body: sanitizedOrderData,
+        });
+      }
 }
 
 export const apiClient = new ApiClient();
