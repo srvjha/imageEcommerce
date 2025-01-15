@@ -5,6 +5,8 @@ import { useSession, signOut } from "next-auth/react";
 import { Home, User } from "lucide-react";
 import { useNotification } from "./Notification";
 import { useState } from "react";
+import Image from "next/image";
+import pictron from '../../public/pictron-images/pictron.png'
 
 export default function Header() {
   const { data: session } = useSession();
@@ -21,7 +23,7 @@ export default function Header() {
   };
 
   return (
-    <div className="navbar bg-base-300 sticky top-0 z-40">
+    <div className="navbar bg-black sticky top-0 z-40">
       <div className="container mx-auto">
         <div className="flex-1 px-2 lg:flex-none">
           <Link
@@ -30,8 +32,12 @@ export default function Header() {
             prefetch={true}
             onClick={() => showNotification("Welcome to ImageKit Shop", "info")}
           >
-            <Home className="w-5 h-5" />
-            ImageKit Shop
+            <Image
+            src={pictron}
+            width={100}
+            height={100}
+            alt="Picture of the author"
+          />
           </Link>
         </div>
         <div className="flex flex-1 justify-end px-2">
@@ -43,7 +49,7 @@ export default function Header() {
                 role="button"
                 className="btn btn-ghost btn-circle"
               >
-                <User className="w-5 h-5" />
+                <User className="w-5 h-5 text-white" />
               </div>
               <ul
                 tabIndex={0}
