@@ -29,11 +29,13 @@ export default function Login() {
   };
 
   return (
-    <div className="max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Login</h1>
+    <div className="h-[650px] p-2 bg-[url(https://img.freepik.com/free-photo/abstract-autumn-beauty-multi-colored-leaf-vein-pattern-generated-by-ai_188544-9871.jpg)]">
+
+    <div className="max-w-md mx-auto bg-black p-8 w-full rounded-lg mt-32 h-[380px]">
+      <h1 className="text-2xl font-bold mb-4 text-white">Login</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="email" className="block mb-1">
+          <label htmlFor="email" className="block mb-1 text-white">
             Email
           </label>
           <input
@@ -46,7 +48,7 @@ export default function Login() {
           />
         </div>
         <div>
-          <label htmlFor="password" className="block mb-1">
+          <label htmlFor="password" className="block mb-1 text-white">
             Password
           </label>
           <input
@@ -64,13 +66,14 @@ export default function Login() {
         >
           Login
         </button>
-        <p className="text-center mt-4">
+        <p className="text-center mt-4 text-gray-400">
           Don&apos;t have an account?{" "}
           <Link href="/register" className="text-blue-500 hover:text-blue-600">
             Register
           </Link>
         </p>
       </form>
+    </div>
     </div>
   );
 }
