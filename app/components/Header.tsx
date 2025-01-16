@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { Home, User } from "lucide-react";
 import { useNotification } from "./Notification";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 import pictron from '../../public/pictron-images/pictron.png'
@@ -11,7 +12,11 @@ import pictron from '../../public/pictron-images/pictron.png'
 export default function Header() {
   const { data: session } = useSession();
   const { showNotification } = useNotification();
-  const [showAdmin,setShowAdmin] = useState(true)
+  const [showAdmin,setShowAdmin] = useState(true);
+  const pathname = usePathname();
+  const hideHeaderRoutes = ["/login", "/register"]; // Routes without a header
+  const showHeader = !hideHeaderRoutes.includes(pathname);
+  console.log("showHeader:: ",showHeader)
 
   const handleSignOut = async () => {
     try {
@@ -23,7 +28,8 @@ export default function Header() {
   };
 
   return (
-    <div className="navbar bg-black sticky top-0 z-40">
+    showHeader ? (
+      <div className="navbar bg-black sticky top-0 z-40">
       <div className="container mx-auto">
         <div className="flex-1 px-2 lg:flex-none">
           <Link
@@ -115,5 +121,7 @@ export default function Header() {
         </div>
       </div>
     </div>
+    ):(null)
+   
   );
 }
