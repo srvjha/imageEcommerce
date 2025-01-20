@@ -29,7 +29,7 @@ export default function Header() {
 
   return (
     showHeader ? (
-      <div className="navbar bg-black sticky top-0 z-40">
+      <div  className="navbar  bg-gradient-to-b from-[#010b1a] via-indigo-600 to-white sticky top-0 z-40">
       <div className="container mx-auto">
         <div className="flex-1 px-2 lg:flex-none">
           <Link
@@ -59,7 +59,7 @@ export default function Header() {
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content z-[1] shadow-lg bg-base-100 rounded-box w-64 mt-4 py-2"
+                className="dropdown-content z-[1] shadow-lg bg-base-100 text-white rounded-box w-64 mt-4 py-2"
               >
                 {session ? (
                   <>
