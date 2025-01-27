@@ -12,14 +12,14 @@ export default function ProductCard({ product }: { product: ProductInterface }) 
   );
 
   return (
-    <div className="card bg-base-100 shadow hover:shadow-lg transition-all duration-300">
-      <figure className="relative px-4 pt-4">
+    <div className="card w-[290px] bg-base-100 shadow hover:shadow-lg transition-all duration-300">
+      <figure className="relative px-0 pt-0">
         <Link
           href={`/products/${product._id}`}
           className="relative group w-full"
         >
           <div
-            className="rounded-xl overflow-hidden relative w-full"
+            className="rounded-t-xl overflow-hidden relative w-full"
             style={{
               aspectRatio:
                 IMAGE_VARIANTS.SQUARE.dimensions.width /
@@ -34,8 +34,7 @@ export default function ProductCard({ product }: { product: ProductInterface }) 
                 {
                   height: IMAGE_VARIANTS.SQUARE.dimensions.height.toString(),
                   width: IMAGE_VARIANTS.SQUARE.dimensions.width.toString(),
-                  cropMode: "extract",
-                  focus: "center",
+                  cropMode: "extract",                
                   quality: "80",
                 },
               ]}
@@ -61,7 +60,7 @@ export default function ProductCard({ product }: { product: ProductInterface }) 
         <div className="card-actions justify-between items-center mt-2">
           <div className="flex flex-col">
             <span className="text-lg font-bold">
-              From ${lowestPrice.toFixed(2)}
+              From  ₹{(Number(lowestPrice.toFixed(2)) * 100).toFixed(2)}
             </span>
             <span className="text-xs text-base-content/50">
               {product.variants.length} sizes available
@@ -72,8 +71,12 @@ export default function ProductCard({ product }: { product: ProductInterface }) 
             href={`/products/${product._id}`}
             className="btn btn-primary btn-sm gap-2"
           >
-            <Eye className="w-4 h-4" />
+            <div className="flex bg-black text-white px-2 py-3 hover:bg-gray-900 justify-center items-center rounded-xl mt-1 gap-1">
+           
             View Options
+            <Eye className="w-4 h-4 mt-1" />
+            </div>
+           
           </Link>
         </div>
       </div>

@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import pictron from '../../public/pictron-images/pictron.png'
 import { Eye, EyeClosed, EyeOff, Lock, Mail } from "lucide-react";
+import { ToastContainer,toast } from "react-toastify";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -28,9 +29,9 @@ export default function Login() {
     });
 
     if (result?.error) {
-      showNotification(result.error, "error");
+      toast.error(result.error);
     } else {
-      showNotification("Login successful!", "success");
+      toast.success("Login successful!",);
       router.push("/");
     }
   };
@@ -38,7 +39,19 @@ export default function Login() {
   return (
     <div 
     className="min-h-screen bg-[url('https://images.pexels.com/photos/1259713/pexels-photo-1259713.jpeg?cs=srgb&dl=pexels-johnny-chen-335518-1259713.jpg&fm=jpg')] bg-cover p-2">
-
+    <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        
+        />
     <div className="max-w-md mx-auto backdrop-blur-sm bg-white/10 p-8 w-full rounded-lg mt-32 mr-32 h-[470px]">
       <div className = "flex items-center justify-center  -mt-4"><Image
             src={pictron}

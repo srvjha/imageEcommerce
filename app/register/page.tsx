@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import pictron from '../../public/pictron-images/pictron.png'
 import { Eye, EyeClosed, EyeOff, Lock, Mail } from "lucide-react";
+import { ToastContainer,toast } from "react-toastify";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -48,19 +49,34 @@ export default function Register() {
         throw new Error(data.error || "Registration failed");
       }
 
-      showNotification("Registration successful! Please log in.", "success");
+      toast.success("Registration successful! Please log in.");
       router.push("/login");
     } catch (error) {
-      showNotification(
+      toast.error(
         error instanceof Error ? error.message : "Registration failed",
-        "error"
+       
+        
       );
     }
   };
 
 
   return (
+    
     <div className="min-h-screen bg-[url('https://images.pexels.com/photos/1259713/pexels-photo-1259713.jpeg?cs=srgb&dl=pexels-johnny-chen-335518-1259713.jpg&fm=jpg')] bg-cover p-2">
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        
+        />
 
     <div className="max-w-md mx-auto backdrop-blur-sm bg-white/10 p-8 w-full rounded-lg mt-32 mr-32 h-[460px]">
     <div className = "flex items-center justify-center  -mt-8"><Image

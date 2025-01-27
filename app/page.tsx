@@ -21,8 +21,10 @@ export default function Home() {
    
   },[])
   return (
-    <main className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">ImageKit Shop</h1>
+    <main className=" mx-auto px-4 py-8 max-w-[1200px] ">
+      <h1 className="text-3xl text-center font-medium mt-10 mb-8">Newly Added</h1>
+      <ImageGallery products={products} />
+      <h1 className="text-3xl text-center font-medium mb-14 mt-28">Popular Collections Added</h1>
       <ImageGallery products={products} />
     </main>
   );

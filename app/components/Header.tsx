@@ -2,17 +2,20 @@
 
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-import { Home, User } from "lucide-react";
+import { Home, Search, User } from "lucide-react";
 import { useNotification } from "./Notification";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import pictron from '../../public/pictron-images/pictron.png'
+import { FaUser } from "react-icons/fa";
 
 export default function Header() {
   const { data: session } = useSession();
   const { showNotification } = useNotification();
   const [showAdmin,setShowAdmin] = useState(true);
+  const [showDropDown,setShowDropDown] = useState(false);
+  const [isScrolled,setIsScrolled] = useState(false)
   const pathname = usePathname();
   const hideHeaderRoutes = ["/login", "/register"]; // Routes without a header
   const showHeader = !hideHeaderRoutes.includes(pathname);
@@ -27,11 +30,34 @@ export default function Header() {
     }
   };
 
+
+  useEffect(()=>{
+   const handleScroll = () =>{
+     if(window.scrollY > 0 ){
+      setIsScrolled(true);
+      console.log("goes down ",window.scrollY)
+    }
+    else if(window.scrollY === 0) {
+      setIsScrolled(false);
+      console.log("goes up ",window.scrollY)
+    }
+  }
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  },[])
+
+
+
   return (
     showHeader ? (
-      <div  className="navbar  bg-gradient-to-b from-[#010b1a] via-indigo-600 to-white sticky top-0 z-40">
-      <div className="container mx-auto">
-        <div className="flex-1 px-2 lg:flex-none">
+      <div  
+      className={`flex justify-center items-center  sticky h-16 top-0 z-40 px-6 ${isScrolled ? "bg-white/20 h-20 backdrop-blur-xl":""} `}>
+    
+        <div className="flex-1 flex-grow px-2 lg:flex-none ">
           <Link
             href="/"
             className="btn btn-ghost text-xl gap-2 normal-case font-bold"
@@ -40,85 +66,111 @@ export default function Header() {
           >
             <Image
             src={pictron}
-            width={100}
-            height={100}
+            width={120}
+            height={120}
             alt="Picture of the author"
           />
           </Link>
         </div>
-        <div className="flex flex-1 justify-end px-2">
-          <div className="flex items-stretch gap-2">
-            <div className="dropdown dropdown-end">
-              
+
+        <div className={`flex flex-1 justify-end items-center ${isScrolled ? "justify-end":""}`}>
+        <div className={`relative w-full max-w-4xl ml-36 ${isScrolled ? "max-w-lg" :""}`}>
+        <input
+          type="text"
+          className="w-full h-full p-3 pl-12 rounded-xl border shadow-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Search..."
+        />
+        <span className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400">
+          <Search width={20} height={20} />
+        </span>
+      </div>
+
+
+        <div className={`flex  justify-end p-2 items-center  h-full w-1/3 ${isScrolled ? "hidden":""}`}>
+          <ul className="flex justify-center items-center gap-6 text-lg font-medium">
+            <li>Explore</li>
+            <li>Pricing</li>
+            <li>About</li>
+          </ul>
+        </div>
+        </div>
+
+        
+        <div className={`flex flex-none  justify-end h-16 w-24 p-2 ${isScrolled ? "hidden":""}`}>
+          <div className="flex gap-2 justify-center items-center">
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost btn-circle"
+                className=" flex justify-start items-center relative group"
               >
-                <User className="w-5 h-5 text-white" />
+                <FaUser className="w-12 h-12  text-black bg-gray-200 rounded-full p-2 hover:cursor-pointer"/>
+                <ul
+               tabIndex={0}
+               className=" absolute hidden  group-hover:block z-[1] shadow-lg bg-base-100  text-black rounded-xl w-44 top-10 left-10 -ml-40 py-2"
+             >
+               {session ? (
+                 <>
+                   <li className="px-4 py-1">
+                     <span className="text-sm opacity-70">
+                       {session.user?.email?.split("@")[0]}
+                     </span>
+                   </li>
+                   <div className="divider my-1"></div>
+                   {session.user?.role === "admin" && (
+                     <li>
+                       <Link
+                         href="/admin"
+                         className="px-4 py-2 hover:bg-base-200 block w-full"
+                         onClick={() =>
+                           showNotification(
+                             "Welcome to Admin Dashboard",
+                             "info"
+                           )
+                         }
+                       >
+                         Admin Dashboard
+                       </Link>
+                     </li>
+                   )}
+                   <li>
+                     <Link
+                       href="/orders"
+                       className="px-4 py-2 hover:bg-base-200 block w-full"
+                     >
+                       My Orders
+                     </Link>
+                   </li>
+                   <li>
+                     <button
+                       onClick={handleSignOut}
+                       className="px-4 py-2 text-red-600 hover:bg-base-200 w-full text-left"
+                     >
+                       Sign Out
+                     </button>
+                   </li>
+                 </>
+               ) : (
+                 <li>
+                   <Link
+                     href="/login"
+                     className="px-4 py-2 hover:bg-base-200 block w-full"
+                     onClick={() =>
+                       showNotification("Please sign in to continue", "info")
+                     }
+                   >
+                     Login
+                   </Link>
+                 </li>
+               )}
+             </ul>
+             
               </div>
-              <ul
-                tabIndex={0}
-                className="dropdown-content z-[1] shadow-lg bg-base-100 text-white rounded-box w-64 mt-4 py-2"
-              >
-                {session ? (
-                  <>
-                    <li className="px-4 py-1">
-                      <span className="text-sm opacity-70">
-                        {session.user?.email?.split("@")[0]}
-                      </span>
-                    </li>
-                    <div className="divider my-1"></div>
-                    {session.user?.role === "admin" && (
-                      <li>
-                        <Link
-                          href="/admin"
-                          className="px-4 py-2 hover:bg-base-200 block w-full"
-                          onClick={() =>
-                            showNotification(
-                              "Welcome to Admin Dashboard",
-                              "info"
-                            )
-                          }
-                        >
-                          Admin Dashboard
-                        </Link>
-                      </li>
-                    )}
-                    <li>
-                      <Link
-                        href="/orders"
-                        className="px-4 py-2 hover:bg-base-200 block w-full"
-                      >
-                        My Orders
-                      </Link>
-                    </li>
-                    <li>
-                      <button
-                        onClick={handleSignOut}
-                        className="px-4 py-2 text-error hover:bg-base-200 w-full text-left"
-                      >
-                        Sign Out
-                      </button>
-                    </li>
-                  </>
-                ) : (
-                  <li>
-                    <Link
-                      href="/login"
-                      className="px-4 py-2 hover:bg-base-200 block w-full"
-                      onClick={() =>
-                        showNotification("Please sign in to continue", "info")
-                      }
-                    >
-                      Login
-                    </Link>
-                  </li>
-                )}
-              </ul>
+              
+             
+             
             </div>
-          </div>
-        </div>
+      
+      
       </div>
     </div>
     ):(null)
