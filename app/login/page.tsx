@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useNotification } from "../components/Notification";
 import Link from "next/link";
@@ -9,6 +9,8 @@ import Image from "next/image";
 import pictron from '../../public/pictron-images/pictron.png'
 import { Eye, EyeClosed, EyeOff, Lock, Mail } from "lucide-react";
 import { ToastContainer,toast } from "react-toastify";
+import lowQuality from '../../public/login-register-bg/low.jpg';
+import highQuality from '../../public/login-register-bg/high.jpg';
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -16,6 +18,14 @@ export default function Login() {
   const router = useRouter();
   const { showNotification } = useNotification();
   const [showPassword,setShowPassword] = useState(false);
+  const [bgImage,setBgImage] = useState(lowQuality);
+
+  useEffect(() => {
+     setTimeout(()=>{
+      setBgImage(highQuality)
+     },5000)
+
+  }, []);
 
   //const bgImage = "https://images.pexels.com/photos/1259713/pexels-photo-1259713.jpeg?cs=srgb&dl=pexels-johnny-chen-335518-1259713.jpg&fm=jpg"
 
@@ -38,7 +48,7 @@ export default function Login() {
 
   return (
     <div 
-    className="min-h-screen bg-[url('https://images.pexels.com/photos/1259713/pexels-photo-1259713.jpeg?cs=srgb&dl=pexels-johnny-chen-335518-1259713.jpg&fm=jpg')] bg-cover p-2">
+    className={`min-h-screen bg-[url(${bgImage})] bg-cover p-2`}>
     <ToastContainer
         position="bottom-right"
         autoClose={5000}

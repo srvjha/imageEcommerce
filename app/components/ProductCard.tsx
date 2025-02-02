@@ -12,7 +12,8 @@ export default function ProductCard({ product }: { product: ProductInterface }) 
   );
 
   return (
-    <div className="card w-[290px] bg-base-100 shadow hover:shadow-lg transition-all duration-300">
+    
+    <div className=" w-[290px] bg-base-100 z-20  hover:shadow-lg transition-all duration-300">
       <figure className="relative px-0 pt-0">
         <Link
           href={`/products/${product._id}`}
@@ -45,21 +46,21 @@ export default function ProductCard({ product }: { product: ProductInterface }) 
         </Link>
       </figure>
 
-      <div className="card-body p-4">
+      <div className="bg-gray-100 p-4 rounded-b-xl">
         <Link
           href={`/products/${product._id}`}
           className="hover:opacity-80 transition-opacity"
         >
-          <h2 className="card-title text-lg">{product.name}</h2>
+          <h2 className="font-sans font-bold  text-lg">{product.name}</h2>
         </Link>
 
-        <p className="text-sm text-base-content/70 line-clamp-2 min-h-[2.5rem]">
+        <p className="text-sm font-sans text-base-content/70  line-clamp-2 tracking-tighter min-h-[2.5rem]">
           {product.description}
         </p>
 
-        <div className="card-actions justify-between items-center mt-2">
+        <div className="font-sans justify-between items-center -mt-2">
           <div className="flex flex-col">
-            <span className="text-lg font-bold">
+            <span className="text-lg font-semibold">
               From  ₹{(Number(lowestPrice.toFixed(2)) * 100).toFixed(2)}
             </span>
             <span className="text-xs text-base-content/50">

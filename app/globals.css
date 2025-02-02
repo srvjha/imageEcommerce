@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 
 :root {
   --background: #ffffff;
@@ -19,4 +24,51 @@ body {
   background: #fef5e4 ;
   font-family: Arial, Helvetica, sans-serif;
   height: fit-content;
+}
+
+.roboto-condensed-manual {
+  font-family: "Roboto Condensed", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+
+.roboto-mono-manual {
+  font-family: "Roboto Mono", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.header-btn{
+  cursor: pointer;
+  background-color: #0a0a0a;
+  border-radius: 14px;
+  padding: 8px 15px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.header-btn:hover{
+  scale: 1.1;
+}
+
+@keyframes glowing {
+  0% { text-shadow: 0 0 5px #010117; }
+  50% { text-shadow: 0 0 20px #000002; }
+  100% { text-shadow: 0 0 5px #010712; }
+}
+
+.glow-text {
+  
+  color: white;
+  animation: glowing 1.5s infinite alternate;
+}
+
+.footer{
+
+  display: flex;
+  flex:1;
+  height:100%;
+  width:100%
 }

@@ -7,7 +7,7 @@ import { useNotification } from "./Notification";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import pictron from '../../public/pictron-images/pictron.png'
+import pictron from '../../public/pictron-images/pictron1.png'
 import { FaUser } from "react-icons/fa";
 
 export default function Header() {
@@ -54,10 +54,9 @@ export default function Header() {
 
   return (
     showHeader ? (
-      <div  
-      className={`flex justify-center items-center  sticky h-16 top-0 z-40 px-6 ${isScrolled ? "bg-white/20 h-20 backdrop-blur-xl":""} `}>
-    
-        <div className="flex-1 flex-grow px-2 lg:flex-none ">
+      <div   
+      className={`relative flex justify-center items-center sticky top-0 z-[60] h-16 px-6 py-10 transition-all duration-300 ${isScrolled ? "bg-white/20 h-20 backdrop-blur-xl" : ""}`}>
+       <div className="flex-1 flex-grow px-2 lg:flex-none -mt-2 ">
           <Link
             href="/"
             className="btn btn-ghost text-xl gap-2 normal-case font-bold"
@@ -66,15 +65,15 @@ export default function Header() {
           >
             <Image
             src={pictron}
-            width={120}
-            height={120}
+            width={140}
+            height={140}
             alt="Picture of the author"
           />
           </Link>
         </div>
 
-        <div className={`flex flex-1 justify-end items-center ${isScrolled ? "justify-end":""}`}>
-        <div className={`relative w-full max-w-4xl ml-36 ${isScrolled ? "max-w-lg" :""}`}>
+        <div className={`flex flex-1 justify-end  items-center ${isScrolled ? "justify-end":""}`}>
+        <div className={`relative w-full max-w-4xl  ${isScrolled ? "max-w-lg" :""}`}>
         <input
           type="text"
           className="w-full h-full p-3 pl-12 rounded-xl border shadow-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -86,11 +85,11 @@ export default function Header() {
       </div>
 
 
-        <div className={`flex  justify-end p-2 items-center  h-full w-1/3 ${isScrolled ? "hidden":""}`}>
-          <ul className="flex justify-center items-center gap-6 text-lg font-medium">
-            <li>Explore</li>
-            <li>Pricing</li>
-            <li>About</li>
+        <div className={`flex  justify-end p-2 items-center   h-full w-1/3 ${isScrolled ? "hidden":""}`}>
+          <ul className="flex justify-center items-center gap-2 text-lg  text-white font-extrabold ">
+            <li className="header-btn">Explore</li>
+            <li className="header-btn"> Pricing</li>
+            <li className="header-btn">About</li>
           </ul>
         </div>
         </div>
@@ -106,11 +105,11 @@ export default function Header() {
                 <FaUser className="w-12 h-12  text-black bg-gray-200 rounded-full p-2 hover:cursor-pointer"/>
                 <ul
                tabIndex={0}
-               className=" absolute hidden  group-hover:block z-[1] shadow-lg bg-base-100  text-black rounded-xl w-44 top-10 left-10 -ml-40 py-2"
+               className=" absolute hidden bg-white  group-hover:block z-[1] shadow-lg bg-base-100  text-black rounded-xl w-44 top-12 -right-6  py-2"
              >
                {session ? (
                  <>
-                   <li className="px-4 py-1">
+                   <li className="px-4 py-1 ">
                      <span className="text-sm opacity-70">
                        {session.user?.email?.split("@")[0]}
                      </span>
@@ -120,7 +119,7 @@ export default function Header() {
                      <li>
                        <Link
                          href="/admin"
-                         className="px-4 py-2 hover:bg-base-200 block w-full"
+                         className="px-4 py-2 hover:bg-base-200 block w-full hover:bg-black hover:text-white"
                          onClick={() =>
                            showNotification(
                              "Welcome to Admin Dashboard",
@@ -135,7 +134,7 @@ export default function Header() {
                    <li>
                      <Link
                        href="/orders"
-                       className="px-4 py-2 hover:bg-base-200 block w-full"
+                       className="px-4 py-2 hover:bg-base-200 block w-full hover:bg-black hover:text-white"
                      >
                        My Orders
                      </Link>
@@ -153,7 +152,7 @@ export default function Header() {
                  <li>
                    <Link
                      href="/login"
-                     className="px-4 py-2 hover:bg-base-200 block w-full"
+                     className="px-4 py-2 hover:bg-base-200 block w-full hover:bg-black hover:text-white"
                      onClick={() =>
                        showNotification("Please sign in to continue", "info")
                      }
