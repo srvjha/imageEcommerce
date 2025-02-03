@@ -27,7 +27,7 @@ export default function Login() {
 
   }, []);
 
-  //const bgImage = "https://images.pexels.com/photos/1259713/pexels-photo-1259713.jpeg?cs=srgb&dl=pexels-johnny-chen-335518-1259713.jpg&fm=jpg"
+ // const bgImage = "https://images.pexels.com/photos/1259713/pexels-photo-1259713.jpeg?cs=srgb&dl=pexels-johnny-chen-335518-1259713.jpg&fm=jpg"
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,7 +48,8 @@ export default function Login() {
 
   return (
     <div 
-    className={`min-h-screen bg-[url(${bgImage})] bg-cover p-2`}>
+    className="min-h-screen bg-[url('https://images.pexels.com/photos/1259713/pexels-photo-1259713.jpeg?cs=srgb&dl=pexels-johnny-chen-335518-1259713.jpg&fm=jpg')] bg-cover p-2">
+    
     <ToastContainer
         position="bottom-right"
         autoClose={5000}

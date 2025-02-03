@@ -168,10 +168,10 @@ export default function ProductPage() {
         </div>
 
         {/* Product Details Section */}
-        <div className="space-y-6">
+        <div className="space-y-6 text-gray-200 bg-black/10 rounded-xl backdrop-blur-sm p-4 h-[55%]">
           <div>
             <h1 className="text-4xl font-bold mb-2">{product.name}</h1>
-            <p className="text-base-content/80 text-lg">
+            <p className="text-base-content/80 text-lg bg-re">
               {product.description}
             </p>
           </div>
@@ -182,7 +182,7 @@ export default function ProductPage() {
             {product.variants.map((variant) => (
               <div
                 key={variant.type}
-                className={`card bg-base-200 cursor-pointer hover:bg-base-300 transition-colors ${
+                className={`card bg-base-200 bg-black rounded-lg cursor-pointer hover:bg-base-300 transition-colors ${
                   selectedVariant?.type === variant.type
                     ? "ring-2 ring-primary"
                     : ""
@@ -219,10 +219,10 @@ export default function ProductPage() {
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="text-xl font-bold">
-                        ${variant.price.toFixed(2)}
+                        ₹{(Number(variant.price.toFixed(2)) * 100).toFixed(2)}
                       </span>
                       <button
-                        className="btn btn-primary btn-sm"
+                        className="bg-blue-600 text-white p-2 rounded-lg tracking-tighter hover:bg-blue-500 hover:scale-[1.1] transition-transform ease-in-out"
                         onClick={(e) => {
                           e.stopPropagation();
                           handlePurchase(variant);
