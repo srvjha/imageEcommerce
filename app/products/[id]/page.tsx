@@ -238,7 +238,7 @@ export default function ProductPage() {
           </div>
 
           {/* License Information */}
-          <div className="card bg-base-200">
+          <div className="card bg-base-300">
             <div className="card-body p-4">
               <h3 className="font-semibold mb-2">License Information</h3>
               <ul className="space-y-2">
