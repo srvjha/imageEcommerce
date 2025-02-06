@@ -2,9 +2,12 @@ import { IKImage } from "imagekitio-next";
 import Link from "next/link";
 import { IMAGE_VARIANTS, ProductInterface } from "@/models/Product.model";
 import { Eye } from "lucide-react";
+import { useState } from "react";
+import { SyncLoader } from "react-spinners";
 
 
 export default function ProductCard({ product }: { product: ProductInterface }) {
+  const [viewOptions,setViewOptions] = useState(false);
   console.log("product: ",product)
   const lowestPrice = product.variants.reduce(
     (min, variant) => (variant.price < min ? variant.price : min),
@@ -71,11 +74,22 @@ export default function ProductCard({ product }: { product: ProductInterface }) 
           <Link
             href={`/products/${product._id}`}
             className="btn btn-primary btn-sm gap-2"
+            onClick={()=>setViewOptions(true)}
           >
             <div className="flex bg-black text-white px-2 py-3 hover:bg-gray-900 justify-center items-center rounded-xl mt-1 gap-1">
            
-            View Options
-            <Eye className="w-4 h-4 mt-1" />
+            {viewOptions ? (
+               <p className="text-base-content/70">
+               <SyncLoader
+              color="#ffffff"
+              size={10}
+              />
+              </p>
+            ) : (
+              <div> View Options </div>
+              
+            )}
+          {  !viewOptions && <Eye className="w-4 h-4 mt-1" />}
             </div>
            
           </Link>

@@ -13,6 +13,7 @@ import { Loader2, AlertCircle, Check, Image as ImageIcon } from "lucide-react";
 import { useNotification } from "@/app/components/Notification";
 import { useSession } from "next-auth/react";
 import { apiClient } from "@/lib/api-client";
+import { SyncLoader } from "react-spinners";
 
 export default function ProductPage() {
   const params = useParams();
@@ -117,7 +118,11 @@ export default function ProductPage() {
   if (loading)
     return (
       <div className="min-h-[70vh] flex justify-center items-center">
-        <Loader2 className="w-12 h-12 animate-spin text-primary" />
+         <p className="text-base-content/70">
+           <SyncLoader
+          color="#18a5d6"
+          />
+          </p>
       </div>
     );
 

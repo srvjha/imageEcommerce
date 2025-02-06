@@ -87,9 +87,9 @@ export default function Header() {
 
         <div className={`flex  justify-end p-2 items-center   h-full w-1/3 ${isScrolled ? "hidden":""}`}>
           <ul className="flex justify-center items-center gap-2 text-lg  text-white font-extrabold ">
-            <li className="header-btn">Explore</li>
-            <li className="header-btn"> Pricing</li>
-            <li className="header-btn">About</li>
+            <Link href="/explore"><li className="header-btn">Explore</li></Link>
+            <Link href="/pricing"><li className="header-btn"> Pricing</li></Link>
+            <Link href="/about"><li className="header-btn">About</li></Link>
           </ul>
         </div>
         </div>
